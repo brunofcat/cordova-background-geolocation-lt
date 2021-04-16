@@ -81,6 +81,16 @@
                 <param name="android-package" value="com.transistorsoft.cordova.bggeo.CDVBackgroundGeolocation"/>
             </feature>
         </config-file>
+        
+       
+        
+            <!-- Copy BackgroundGeolocationHeadlessTask.java -->
+         <resource-file 
+             src="src/android/BackgroundGeolocationHeadlessTask.java" 
+             target="src/com/transistorsoft/cordova/bggeo/BackgroundGeolocationHeadlessTask.java" />
+        
+        
+        
      </platform>
 
      <!-- Browser (mock) -->
