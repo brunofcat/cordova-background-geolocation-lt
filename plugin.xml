@@ -85,9 +85,9 @@
        
         
             <!-- Copy BackgroundGeolocationHeadlessTask.java -->
-         <resource-file 
+         <source-file
             src="src/android/BackgroundGeolocationHeadlessTask.java" 
-            target="app/src/main/java/com/transistorsoft/cordova/bggeo/BackgroundGeolocationHeadlessTask.java" />
+            target="src/com/transistorsoft/cordova/bggeo" />
         
         
         
