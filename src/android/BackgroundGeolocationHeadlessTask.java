@@ -34,7 +34,7 @@ public class BackgroundGeolocationHeadlessTask  {
     @Subscribe
     public void onHeadlessTask(HeadlessEvent event) {
         String name = event.getName();
-        Log.d("MyApp", "BackgroundGeolocationHeadlessTask event: " + event.getName());
+        Log.v("MyApp", "BackgroundGeolocationHeadlessTask event: " + event.getName());
         TSLog.logger.debug("\uD83D\uDC80  event: " + event.getName());
         TSLog.logger.debug("- event: " + event.getEvent());
 
