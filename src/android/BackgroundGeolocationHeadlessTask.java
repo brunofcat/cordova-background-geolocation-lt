@@ -62,9 +62,7 @@ public class BackgroundGeolocationHeadlessTask  {
         } else if (name.equals(BackgroundGeolocation.EVENT_GEOFENCESCHANGE)) {
             GeofencesChangeEvent geofencesChangeEvent = event.getGeofencesChangeEvent();
         } else if (name.equals(BackgroundGeolocation.EVENT_HEARTBEAT)) {
-            HeartbeatEvent heartbeatEvent = event.getHeartbeatEvent();
-            LocationProviderChangeEvent providerChange = event.getProviderChangeEvent();
-            
+            HeartbeatEvent heartbeatEvent = event.getHeartbeatEvent();       
         } else if (name.equals(BackgroundGeolocation.EVENT_NOTIFICATIONACTION)) {
             String buttonId = event.getNotificationEvent();
         } else if (name.equals(BackgroundGeolocation.EVENT_CONNECTIVITYCHANGE)) {
