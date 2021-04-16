@@ -34,7 +34,7 @@ public class BackgroundGeolocationHeadlessTask  {
     @Subscribe
     public void onHeadlessTask(HeadlessEvent event) {
         String name = event.getName();
-        Log.v("MyApp", "BackgroundGeolocationHeadlessTask event: " + event.getName());
+        Log.v("MyApp", "BackgroundGeolocationHeadlessTask Event: " + event.getName());
         TSLog.logger.debug("\uD83D\uDC80  event: " + event.getName());
         TSLog.logger.debug("- event: " + event.getEvent());
 
@@ -63,6 +63,7 @@ public class BackgroundGeolocationHeadlessTask  {
             GeofencesChangeEvent geofencesChangeEvent = event.getGeofencesChangeEvent();
         } else if (name.equals(BackgroundGeolocation.EVENT_HEARTBEAT)) {
             HeartbeatEvent heartbeatEvent = event.getHeartbeatEvent();
+            Log.v("MyApp", "BackgroundGeolocationHeadlessTask Event HeartbeatEvent");
         } else if (name.equals(BackgroundGeolocation.EVENT_NOTIFICATIONACTION)) {
             String buttonId = event.getNotificationEvent();
         } else if (name.equals(BackgroundGeolocation.EVENT_CONNECTIVITYCHANGE)) {
@@ -71,6 +72,7 @@ public class BackgroundGeolocationHeadlessTask  {
             boolean enabled = event.getEnabledChangeEvent();
         } else {
             TSLog.logger.warn(TSLog.warn("Unknown Headless Event: " + name));
+            Log.v("MyApp", "BackgroundGeolocationHeadlessTask Unknown Headless Event: " + event.getName() + "BK name: " + BackgroundGeolocation.EVENT_HEARTBEAT);
         }
     }
 }
