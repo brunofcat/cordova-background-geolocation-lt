@@ -16,6 +16,7 @@ import com.transistorsoft.locationmanager.http.HttpResponse;
 import com.transistorsoft.locationmanager.location.TSLocation;
 import com.transistorsoft.locationmanager.logger.TSLog;
 
+import android.util.Log;
 
 /**
  * BackgroundGeolocationHeadlessTask
@@ -33,6 +34,7 @@ public class BackgroundGeolocationHeadlessTask  {
     @Subscribe
     public void onHeadlessTask(HeadlessEvent event) {
         String name = event.getName();
+        Log.d("MyApp", "BackgroundGeolocationHeadlessTask event: " + event.getName());
         TSLog.logger.debug("\uD83D\uDC80  event: " + event.getName());
         TSLog.logger.debug("- event: " + event.getEvent());
 
