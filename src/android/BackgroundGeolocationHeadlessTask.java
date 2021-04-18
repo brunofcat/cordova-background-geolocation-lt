@@ -61,7 +61,18 @@ public class BackgroundGeolocationHeadlessTask  {
             GeofencesChangeEvent geofencesChangeEvent = event.getGeofencesChangeEvent();
         } else if (name.equals(BackgroundGeolocation.EVENT_HEARTBEAT)) {
             HeartbeatEvent heartbeatEvent = event.getHeartbeatEvent();
-            HttpResponse response = event.getHttpEvent();
+            
+            JSONObject params = new JSONObject();
+            try {
+                params.put("connected", event.getHeartbeatEvent());
+                PluginResult result = new PluginResult(PluginResult.Status.OK, params);
+                result.setKeepCallback(true);
+                callbackContext.sendPluginResult(result);
+            }
+            catch (JSONException e) {
+                callbackContext.error(e.getMessage());
+            }
+            
         } else if (name.equals(BackgroundGeolocation.EVENT_NOTIFICATIONACTION)) {
             String buttonId = event.getNotificationEvent();
         } else if (name.equals(BackgroundGeolocation.EVENT_CONNECTIVITYCHANGE)) {
