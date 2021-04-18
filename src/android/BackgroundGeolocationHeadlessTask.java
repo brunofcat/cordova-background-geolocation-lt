@@ -49,8 +49,6 @@ public class BackgroundGeolocationHeadlessTask  {
             HttpResponse response = event.getHttpEvent();
         } else if (name.equals(BackgroundGeolocation.EVENT_PROVIDERCHANGE)) {
             LocationProviderChangeEvent providerChange = event.getProviderChangeEvent();
-        } else if (name.equals(BackgroundGeolocation.EVENT_PROVIDERCHANGE)) {
-            LocationProviderChangeEvent providerChange = event.getProviderChangeEvent();
         } else if (name.equals(BackgroundGeolocation.EVENT_ACTIVITYCHANGE)) {
             ActivityChangeEvent activityChange = event.getActivityChangeEvent();
         } else if (name.equals(BackgroundGeolocation.EVENT_SCHEDULE)) {
@@ -62,7 +60,8 @@ public class BackgroundGeolocationHeadlessTask  {
         } else if (name.equals(BackgroundGeolocation.EVENT_GEOFENCESCHANGE)) {
             GeofencesChangeEvent geofencesChangeEvent = event.getGeofencesChangeEvent();
         } else if (name.equals(BackgroundGeolocation.EVENT_HEARTBEAT)) {
-            HeartbeatEvent heartbeatEvent = event.getHeartbeatEvent();       
+            HeartbeatEvent heartbeatEvent = event.getHeartbeatEvent();
+            HttpResponse response = event.getHeartbeatEvent();
         } else if (name.equals(BackgroundGeolocation.EVENT_NOTIFICATIONACTION)) {
             String buttonId = event.getNotificationEvent();
         } else if (name.equals(BackgroundGeolocation.EVENT_CONNECTIVITYCHANGE)) {
