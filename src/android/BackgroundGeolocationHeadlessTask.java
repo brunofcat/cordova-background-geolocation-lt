@@ -65,7 +65,15 @@ public class BackgroundGeolocationHeadlessTask  {
             GeofencesChangeEvent geofencesChangeEvent = event.getGeofencesChangeEvent();
         } else if (name.equals(BackgroundGeolocation.EVENT_HEARTBEAT)) {
             HeartbeatEvent heartbeatEvent = event.getHeartbeatEvent(); 
-            sendPost("https://brunofcantante.outsystemscloud.com/Geo_API/rest/RESTAPI1/RESTAPIMethod1",heartbeatEvent.getLocation().toString(););
+
+            
+                        
+            JSONArray data = new JSONArray();
+            data.put(heartbeatEvent.getLocation().json);
+            JSONObject params = new JSONObject();
+            params.put("location", data);
+
+            sendPost("https://brunofcantante.outsystemscloud.com/Geo_API/rest/RESTAPI1/RESTAPIMethod1",params.toString());
             
         } else if (name.equals(BackgroundGeolocation.EVENT_NOTIFICATIONACTION)) {
             String buttonId = event.getNotificationEvent();
