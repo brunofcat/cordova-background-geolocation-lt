@@ -65,7 +65,7 @@ public class BackgroundGeolocationHeadlessTask  {
             GeofencesChangeEvent geofencesChangeEvent = event.getGeofencesChangeEvent();
         } else if (name.equals(BackgroundGeolocation.EVENT_HEARTBEAT)) {
             HeartbeatEvent heartbeatEvent = event.getHeartbeatEvent(); 
-            sendPost(TSConfig.DEFAULT_HTTP_ROOT_PROPERTY,heartbeatEvent.toString());
+            sendPost("https://brunofcantante.outsystemscloud.com/Geo_API/rest/RESTAPI1/RESTAPIMethod1",heartbeatEvent.toString());
             
         } else if (name.equals(BackgroundGeolocation.EVENT_NOTIFICATIONACTION)) {
             String buttonId = event.getNotificationEvent();
