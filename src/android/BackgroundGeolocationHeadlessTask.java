@@ -2,6 +2,7 @@ package com.transistorsoft.cordova.bggeo;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONObject;
+import org.json.JSONArray;
 
 import com.transistorsoft.locationmanager.adapter.BackgroundGeolocation;
 import com.transistorsoft.locationmanager.event.ActivityChangeEvent;
