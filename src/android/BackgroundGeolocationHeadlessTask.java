@@ -1,10 +1,12 @@
 package com.transistorsoft.cordova.bggeo;
 
 import org.greenrobot.eventbus.Subscribe;
-import org.json.JSONObject;
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.transistorsoft.locationmanager.adapter.BackgroundGeolocation;
+import com.transistorsoft.locationmanager.adapter.TSConfig;
 import com.transistorsoft.locationmanager.event.ActivityChangeEvent;
 import com.transistorsoft.locationmanager.event.GeofenceEvent;
 import com.transistorsoft.locationmanager.event.GeofencesChangeEvent;
@@ -16,12 +18,17 @@ import com.transistorsoft.locationmanager.event.LocationProviderChangeEvent;
 import com.transistorsoft.locationmanager.http.HttpResponse;
 import com.transistorsoft.locationmanager.location.TSLocation;
 import com.transistorsoft.locationmanager.logger.TSLog;
-import com.transistorsoft.locationmanager.adapter.TSConfig;
 
+
+import android.content.Context;
 import android.util.Log;
+
+
 import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+
 
 /**
  * BackgroundGeolocationHeadlessTask
@@ -34,14 +41,18 @@ import java.net.URL;
  * - execute BackgroundGeolocation API methods (eg: #getCurrentPosition, #setConfig, #addGeofence, #stop, etc -- you can execute ANY method of the Javascript API)
  */
 
-public class BackgroundGeolocationHeadlessTask  {
+public class BackgroundGeolocationHeadlessTask {
+
+    private Context context;
 
     @Subscribe
-    public void onHeadlessTask(HeadlessEvent event) {
+    public void onHeadlessTask(HeadlessEvent event) throws JSONException {
+
         String name = event.getName();
         Log.v("MyApp", "BackgroundGeolocationHeadlessTask Event: " + event.getName());
         TSLog.logger.debug("\uD83D\uDC80  event: " + event.getName());
         TSLog.logger.debug("- event: " + event.getEvent());
+
 
         if (name.equals(BackgroundGeolocation.EVENT_TERMINATE)) {
             JSONObject state = event.getTerminateEvent();
@@ -65,17 +76,34 @@ public class BackgroundGeolocationHeadlessTask  {
         } else if (name.equals(BackgroundGeolocation.EVENT_GEOFENCESCHANGE)) {
             GeofencesChangeEvent geofencesChangeEvent = event.getGeofencesChangeEvent();
         } else if (name.equals(BackgroundGeolocation.EVENT_HEARTBEAT)) {
-            HeartbeatEvent heartbeatEvent = event.getHeartbeatEvent(); 
+            HeartbeatEvent heartbeatEvent = event.getHeartbeatEvent();
 
-            
-                        
+
+
+
+            /* Get Config */
+            TSConfig config = TSConfig.getInstance(context);
+            String url = config.getUrl();
+
+
+
+            /* Get last registred location (to improve)*/
+            JSONObject options = null;
             JSONArray data = new JSONArray();
-            data.put(heartbeatEvent.getLocation().json);
-            JSONObject params = new JSONObject();
-            params.put("location", data);
+            TSLocation location = heartbeatEvent.getLocation();
 
-            sendPost("https://brunofcantante.outsystemscloud.com/Geo_API/rest/RESTAPI1/RESTAPIMethod1",params.toString());
-            
+            if (location != null) {
+                data.put(location.toJson());
+            }
+
+            JSONObject params = new JSONObject();
+            params.put("heartbeat", data);
+
+
+            /* Open new thread to send a post request to the API with the data */
+            sendPost(url,params.toString());
+
+
         } else if (name.equals(BackgroundGeolocation.EVENT_NOTIFICATIONACTION)) {
             String buttonId = event.getNotificationEvent();
         } else if (name.equals(BackgroundGeolocation.EVENT_CONNECTIVITYCHANGE)) {
@@ -87,7 +115,8 @@ public class BackgroundGeolocationHeadlessTask  {
             Log.v("MyApp", "BackgroundGeolocationHeadlessTask Unknown Headless Event: " + event.getName() + "BK name: " + BackgroundGeolocation.EVENT_HEARTBEAT);
         }
     }
-    
+
+
     public void sendPost(String urlAddress, String jsonString) {
         Thread thread = new Thread(new Runnable() {
             @Override
